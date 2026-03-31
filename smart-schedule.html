@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Schedule</title>
+  <style>
+    :root{
+      --bg:#f5f7fb;
+      --card:#ffffff;
+      --line:#d8dee9;
+      --text:#1f2937;
+      --muted:#6b7280;
+      --accent:#2563eb;
+      --accent-soft:#eff6ff;
+      --ok:#16a34a;
+      --mid:#d97706;
+      --ng:#dc2626;
+      --ok-bg:#dcfce7;
+      --mid-bg:#fef3c7;
+      --ng-bg:#fee2e2;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;
+      background:var(--bg);
+      color:var(--text);
+    }
+    .wrap{max-width:1200px;margin:0 auto;padding:24px}
+    h1{margin:0 0 8px;font-size:32px}
+    .lead{margin:0 0 20px;color:var(--muted)}
+    .status{
+      display:inline-block;
+      padding:6px 10px;
+      border-radius:999px;
+      background:var(--accent-soft);
+      color:var(--accent);
+      font-size:12px;
+      font-weight:700;
+      margin-bottom:16px;
+    }
+    .panel{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:18px;
+      margin-bottom:18px;
+      box-shadow:0 6px 18px rgba(0,0,0,.04);
+    }
+    .stepTitle{
+      font-size:18px;
+      font-weight:700;
+      margin:0 0 14px;
+    }
+    .subTitle{
+      font-size:15px;
+      font-weight:700;
+      margin:16px 0 10px;
+    }
+    .row{
+      display:grid;
+      grid-template-columns:1.2fr 1.5fr 1.5fr auto;
+      gap:10px;
+      align-items:end;
+    }
+    .row2{
+      display:grid;
+      grid-template-columns:1.2fr 1fr 1fr auto;
+      gap:10px;
+      align-items:end;
+    }
+    .label{
+      font-size:13px;
+      color:var(--muted);
+      margin-bottom:6px;
+      display:block;
+    }
+    input, select, textarea, button{
+      font:inherit;
+    }
+    input, select, textarea{
+      width:100%;
+      padding:12px 14px;
+      border:1px solid var(--line);
+      border-radius:12px;
+      background:#fff;
+    }
+    textarea{
+      min-height:84px;
+      resize:vertical;
+    }
+    button{
+      padding:12px 16px;
+      border:none;
+      border-radius:12px;
+      cursor:pointer;
+      background:var(--accent);
+      color:#fff;
+      font-weight:700;
+    }
+    button.sub{
+      background:#e5e7eb;
+      color:#111827;
+    }
+    button.ghost{
+      background:#fff;
+      color:#111827;
+      border:1px solid var(--line);
+    }
+    .infoBox{
+      padding:12px 14px;
+      border:1px solid var(--line);
+      border-radius:12px;
+      background:#fff;
+      font-weight:700;
+      display:inline-block;
+      min-width:180px;
+    }
+    .patientList{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-bottom:12px;
+    }
+    .patientChip{
+      border:1px solid var(--line);
+      background:#fff;
+      color:#111827;
+      padding:10px 14px;
+      border-radius:12px;
+      cursor:pointer;
+    }
+    .patientChip.active{
+      background:var(--accent-soft);
+      border-color:#93c5fd;
+      color:var(--accent);
+      font-weight:700;
+    }
+    .dayGroup{
+      margin-top:18px;
+    }
+    .dayHeader{
+      font-size:18px;
+      font-weight:700;
+      margin:0 0 10px;
+      padding-bottom:6px;
+      border-bottom:2px solid var(--line);
+    }
+    .cards{
+      display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+      gap:14px;
+    }
+    .card{
+      border:1px solid var(--line);
+      border-radius:16px;
+      background:#fff;
+      padding:16px;
+    }
+    .card.ok{background:var(--ok-bg);border-color:#86efac}
+    .card.mid{background:var(--mid-bg);border-color:#fcd34d}
+    .card.ng{background:var(--ng-bg);border-color:#fca5a5}
+    .cardHead{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      align-items:flex-start;
+      margin-bottom:10px;
+    }
+    .cardTitle{
+      font-size:16px;
+      font-weight:700;
+      margin-bottom:4px;
+      line-height:1.5;
+    }
+    .subtext{
+      color:var(--muted);
+      font-size:13px;
+    }
+    .chips{
+      display:flex;
+      gap:8px;
+      margin:10px 0 12px;
+      flex-wrap:wrap;
+    }
+    .choice{
+      background:#fff;
+      color:#111827;
+      border:1px solid var(--line);
+      border-radius:999px;
+      padding:8px 12px;
+      font-weight:700;
+    }
+    .choice.active.ok{background:var(--ok);color:#fff;border-color:var(--ok)}
+    .choice.active.mid{background:var(--mid);color:#fff;border-color:var(--mid)}
+    .choice.active.ng{background:var(--ng);color:#fff;border-color:var(--ng)}
+    .section{
+      margin-top:12px;
+      border-top:1px dashed var(--line);
+      padding-top:12px;
+    }
+    .section h3{
+      margin:0 0 8px;
+      font-size:14px;
+    }
+    .empty{
+      color:var(--muted);
+      padding:8px 0;
+    }
+    @media (max-width: 900px){
+      .row,.row2{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Smart Schedule</h1>
+  <p class="lead">管理栄養士ごとの専用画面 / 患者情報は1回入力 / 日付ごとに整理表示</p>
+  <div class="status" id="saveStatus">Firebase共有モード</div>
+
+  <div class="panel">
+    <div class="stepTitle">管理栄養士</div>
+    <div class="infoBox" id="dietitianNameBox">読み込み中...</div>
+    <div class="subtext" style="margin-top:8px">
+      URLの <code>?user=xxxx</code> で管理栄養士を固定しています。
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="stepTitle">ステップ1—患者を登録・選択</div>
+
+    <div class="patientList" id="patientList"></div>
+
+    <div class="row">
+      <div>
+        <label class="label">患者名</label>
+        <input id="patientNameInput" placeholder="例：山田太郎">
+      </div>
+      <div>
+        <label class="label">患者さんの希望</label>
+        <textarea id="patientRequestInput" placeholder="例：午後希望、木曜不可"></textarea>
+      </div>
+      <div>
+        <label class="label">理事長の希望</label>
+        <textarea id="directorRequestInput" placeholder="例：13時以降、対面のみ"></textarea>
+      </div>
+      <div style="align-self:end">
+        <button type="button" id="savePatientBtn">患者情報を保存</button>
+      </div>
+    </div>
+
+    <div style="margin-top:10px">
+      <button type="button" class="sub" id="newPatientBtn">新しい患者として入力</button>
+      <button type="button" class="sub" id="deletePatientBtn">選択中の患者を削除</button>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="stepTitle">ステップ2—候補日時を追加</div>
+    <div class="subtext" style="margin-bottom:12px" id="selectedPatientInfo">患者を選択してください</div>
+
+    <div class="row2">
+      <div>
+        <label class="label">日付</label>
+        <input id="slotDate" type="date">
+      </div>
+      <div>
+        <label class="label">開始</label>
+        <select id="startTime"></select>
+      </div>
+      <div>
+        <label class="label">終了</label>
+        <select id="endTime"></select>
+      </div>
+      <div style="align-self:end">
+        <button type="button" id="addSlotBtn">枠を追加</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="stepTitle">ステップ3—日付ごとに確認・入力</div>
+    <div id="scheduleBody" class="empty">患者を選択すると、候補枠が日付ごとに表示されます</div>
+  </div>
+</div>
+
+<script type="module">
+const firebaseConfig = {
+  apiKey: "AIzaSyAZeo_8GXgZ0MGDMp7djaMKf6vLtmdhbqk",
+  authDomain: "gen-lang-client-0475031648.firebaseapp.com",
+  databaseURL: "https://gen-lang-client-0475031648-default-rtdb.firebaseio.com/",
+  projectId: "gen-lang-client-0475031648",
+  storageBucket: "gen-lang-client-0475031648.firebasestorage.app",
+  messagingSenderId: "536822691100",
+  appId: "1:536822691100:web:a2a3c8b8fdcfd10bbe36d9"
+};
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+import { getDatabase, ref, onValue, set } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js";
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+const urlParams = new URLSearchParams(window.location.search);
+const userKey = urlParams.get("user") || "default";
+
+const dbRef = ref(db, `smartScheduleByUser/${userKey}`);
+
+const state = {
+  dietitianName: userKey,
+  patients: [],
+  selectedPatientId: "",
+  slots: []
+};
+
+const dietitianNameBox = document.getElementById("dietitianNameBox");
+const patientList = document.getElementById("patientList");
+const patientNameInput = document.getElementById("patientNameInput");
+const patientRequestInput = document.getElementById("patientRequestInput");
+const directorRequestInput = document.getElementById("directorRequestInput");
+const savePatientBtn = document.getElementById("savePatientBtn");
+const newPatientBtn = document.getElementById("newPatientBtn");
+const deletePatientBtn = document.getElementById("deletePatientBtn");
+const selectedPatientInfo = document.getElementById("selectedPatientInfo");
+const slotDate = document.getElementById("slotDate");
+const startTime = document.getElementById("startTime");
+const endTime = document.getElementById("endTime");
+const addSlotBtn = document.getElementById("addSlotBtn");
+const scheduleBody = document.getElementById("scheduleBody");
+
+function fillTimes(sel){
+  sel.innerHTML = "";
+  for(let h=8; h<=20; h++){
+    for(let m=0; m<60; m+=10){
+      const hh = String(h).padStart(2,"0");
+      const mm = String(m).padStart(2,"0");
+      const t = `${hh}:${mm}`;
+      const opt = document.createElement("option");
+      opt.value = t;
+      opt.textContent = t;
+      sel.appendChild(opt);
+    }
+  }
+}
+fillTimes(startTime);
+fillTimes(endTime);
+startTime.value = "10:00";
+endTime.value = "11:00";
+
+function persist(){
+  return set(dbRef, state);
+}
+
+function statusClass(s){
+  if (s === "○") return "ok";
+  if (s === "△") return "mid";
+  if (s === "×") return "ng";
+  return "";
+}
+
+function toggleStatus(slot, next){
+  slot.status = slot.status === next ? "" : next;
+}
+
+function fmtDate(d){
+  if (!d) return "";
+  const dt = new Date(d + "T00:00:00");
+  const w = ["日","月","火","水","木","金","土"][dt.getDay()];
+  return `${d}（${w}）`;
+}
+
+function getSelectedPatient(){
+  return state.patients.find(p => p.id === state.selectedPatientId);
+}
+
+function renderDietitian(){
+  dietitianNameBox.textContent = state.dietitianName;
+}
+
+function renderPatients(){
+  patientList.innerHTML = "";
+  if (!state.patients.length){
+    patientList.innerHTML = '<div class="empty">まだ患者が登録されていません</div>';
+    return;
+  }
+
+  state.patients.forEach(patient => {
+    const btn = document.createElement("button");
+    btn.className = `patientChip ${state.selectedPatientId === patient.id ? "active" : ""}`;
+    btn.textContent = patient.name || "（患者名未入力）";
+    btn.onclick = () => {
+      state.selectedPatientId = patient.id;
+      render();
+      persist();
+    };
+    patientList.appendChild(btn);
+  });
+}
+
+function renderPatientForm(){
+  const patient = getSelectedPatient();
+  if (!patient){
+    patientNameInput.value = "";
+    patientRequestInput.value = "";
+    directorRequestInput.value = "";
+    selectedPatientInfo.textContent = "患者を選択してください";
+    return;
+  }
+  patientNameInput.value = patient.name || "";
+  patientRequestInput.value = patient.patientRequest || "";
+  directorRequestInput.value = patient.directorRequest || "";
+  selectedPatientInfo.textContent = `選択中患者：${patient.name || "（患者名未入力）"}`;
+}
+
+function groupSlotsByDate(slots){
+  const groups = {};
+  slots.forEach(slot => {
+    if (!groups[slot.date]) groups[slot.date] = [];
+    groups[slot.date].push(slot);
+  });
+  return groups;
+}
+
+function renderSchedule(){
+  const patient = getSelectedPatient();
+  if (!patient){
+    scheduleBody.className = "empty";
+    scheduleBody.innerHTML = "患者を選択すると、候補枠が日付ごとに表示されます";
+    return;
+  }
+
+  const list = state.slots
+    .filter(s => s.patientId === patient.id)
+    .sort((a,b) => (a.date+a.start).localeCompare(b.date+b.start));
+
+  if (!list.length){
+    scheduleBody.className = "empty";
+    scheduleBody.innerHTML = "この患者の候補枠はまだありません";
+    return;
+  }
+
+  scheduleBody.className = "";
+  const groups = groupSlotsByDate(list);
+  const dates = Object.keys(groups).sort();
+
+  let html = "";
+  dates.forEach(date => {
+    html += `
+      <div class="dayGroup">
+        <div class="dayHeader">${fmtDate(date)}</div>
+        <div class="cards">
+          ${groups[date].map(slot => `
+            <div class="card ${statusClass(slot.status)}">
+              <div class="cardHead">
+                <div>
+                  <div class="cardTitle">${patient.name || "（患者名未入力）"}</div>
+                  <div class="subtext">${slot.start}〜${slot.end}</div>
+                </div>
+                <button type="button" class="ghost" data-del="${slot.id}">削除</button>
+              </div>
+
+              <div class="chips">
+                <button type="button" class="choice ${slot.status==='○' ? 'active ok' : ''}" data-status="${slot.id}" data-value="○">○</button>
+                <button type="button" class="choice ${slot.status==='△' ? 'active mid' : ''}" data-status="${slot.id}" data-value="△">△</button>
+                <button type="button" class="choice ${slot.status==='×' ? 'active ng' : ''}" data-status="${slot.id}" data-value="×">×</button>
+              </div>
+
+              <div>
+                <label class="label">備考</label>
+                <textarea data-note="${slot.id}" placeholder="例：オンライン希望、時間変更相談可">${slot.note || ""}</textarea>
+              </div>
+
+              <div class="section">
+                <h3>患者さんの希望</h3>
+                <div class="subtext">${patient.patientRequest || "未入力"}</div>
+              </div>
+
+              <div class="section">
+                <h3>理事長の希望</h3>
+                <div class="subtext">${patient.directorRequest || "未入力"}</div>
+              </div>
+            </div>
+          `).join("")}
+        </div>
+      </div>
+    `;
+  });
+
+  scheduleBody.innerHTML = html;
+
+  scheduleBody.querySelectorAll("[data-del]").forEach(btn => {
+    btn.onclick = async () => {
+      state.slots = state.slots.filter(s => s.id !== btn.dataset.del);
+      render();
+      await persist();
+    };
+  });
+
+  scheduleBody.querySelectorAll("[data-status]").forEach(btn => {
+    btn.onclick = async () => {
+      const slot = state.slots.find(s => s.id === btn.dataset.status);
+      if (!slot) return;
+      toggleStatus(slot, btn.dataset.value);
+      render();
+      await persist();
+    };
+  });
+
+  scheduleBody.querySelectorAll("[data-note]").forEach(el => {
+    el.onchange = async () => {
+      const slot = state.slots.find(s => s.id === el.dataset.note);
+      if (!slot) return;
+      slot.note = el.value;
+      await persist();
+    };
+  });
+}
+
+function render(){
+  renderDietitian();
+  renderPatients();
+  renderPatientForm();
+  renderSchedule();
+}
+
+savePatientBtn.onclick = async () => {
+  const name = patientNameInput.value.trim();
+  const patientRequest = patientRequestInput.value.trim();
+  const directorRequest = directorRequestInput.value.trim();
+
+  if (!name){
+    alert("患者名を入力してください。");
+    return;
+  }
+
+  if (!state.selectedPatientId){
+    const newPatient = {
+      id: crypto.randomUUID(),
+      name,
+      patientRequest,
+      directorRequest
+    };
+    state.patients.push(newPatient);
+    state.selectedPatientId = newPatient.id;
+  } else {
+    const patient = getSelectedPatient();
+    if (!patient) return;
+    patient.name = name;
+    patient.patientRequest = patientRequest;
+    patient.directorRequest = directorRequest;
+  }
+
+  render();
+  await persist();
+};
+
+newPatientBtn.onclick = () => {
+  state.selectedPatientId = "";
+  render();
+};
+
+deletePatientBtn.onclick = async () => {
+  const patient = getSelectedPatient();
+  if (!patient) return;
+
+  state.patients = state.patients.filter(p => p.id !== patient.id);
+  state.slots = state.slots.filter(s => s.patientId !== patient.id);
+  state.selectedPatientId = state.patients[0]?.id || "";
+  render();
+  await persist();
+};
+
+addSlotBtn.onclick = async () => {
+  const patient = getSelectedPatient();
+  if (!patient){
+    alert("先に患者を登録または選択してください。");
+    return;
+  }
+  if (!slotDate.value){
+    alert("日付を入力してください。");
+    return;
+  }
+
+  const item = {
+    id: crypto.randomUUID(),
+    patientId: patient.id,
+    date: slotDate.value,
+    start: startTime.value,
+    end: endTime.value,
+    status: "",
+    note: ""
+  };
+
+  state.slots.push(item);
+  render();
+  await persist();
+};
+
+onValue(dbRef, snapshot => {
+  const val = snapshot.val();
+  if (val) {
+    state.dietitianName = val.dietitianName || userKey;
+    state.patients = Array.isArray(val.patients) ? val.patients : [];
+    state.selectedPatientId = val.selectedPatientId || "";
+    state.slots = Array.isArray(val.slots) ? val.slots : [];
+  } else {
+    state.dietitianName = userKey;
+    state.patients = [];
+    state.selectedPatientId = "";
+    state.slots = [];
+  }
+  render();
+});
+</script>
+</body>
+</html>
