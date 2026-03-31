@@ -304,7 +304,13 @@ const db = getDatabase(app);
 
 const urlParams = new URLSearchParams(window.location.search);
 const userKey = urlParams.get("user") || "default";
+const nameMap = {
+  sekioka: "関岡",
+  izuta: "泉田",
+  hasegawa: "長谷川"
+};
 
+const displayName = nameMap[userKey] || userKey;
 const dbRef = ref(db, `smartScheduleByUser/${userKey}`);
 
 const state = {
@@ -375,7 +381,7 @@ function getSelectedPatient(){
 }
 
 function renderDietitian(){
-  dietitianNameBox.textContent = state.dietitianName;
+  dietitianNameBox.textContent = displayName;
 }
 
 function renderPatients(){
