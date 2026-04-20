@@ -31,186 +31,104 @@
     h1{margin:0 0 8px;font-size:32px}
     .lead{margin:0 0 20px;color:var(--muted)}
     .status{
-      display:inline-block;
-      padding:6px 10px;
-      border-radius:999px;
-      background:var(--accent-soft);
-      color:var(--accent);
-      font-size:12px;
-      font-weight:700;
-      margin-bottom:16px;
+      display:inline-block;padding:6px 10px;border-radius:999px;
+      background:var(--accent-soft);color:var(--accent);
+      font-size:12px;font-weight:700;margin-bottom:16px;
     }
     .panel{
-      background:var(--card);
-      border:1px solid var(--line);
-      border-radius:18px;
-      padding:18px;
-      margin-bottom:18px;
-      box-shadow:0 6px 18px rgba(0,0,0,.04);
+      background:var(--card);border:1px solid var(--line);border-radius:18px;
+      padding:18px;margin-bottom:18px;box-shadow:0 6px 18px rgba(0,0,0,.04);
     }
-    .stepTitle{
-      font-size:18px;
-      font-weight:700;
-      margin:0 0 14px;
+    .stepTitle{font-size:18px;font-weight:700;margin:0 0 14px;}
+    .row{display:grid;grid-template-columns:1.2fr 1.5fr 1.5fr auto;gap:10px;align-items:end;}
+    .row2{display:grid;grid-template-columns:1.2fr 1fr 1fr auto;gap:10px;align-items:end;}
+    .label{font-size:13px;color:var(--muted);margin-bottom:6px;display:block;}
+    input,select,textarea,button{font:inherit;}
+    input,select,textarea{
+      width:100%;padding:12px 14px;border:1px solid var(--line);
+      border-radius:12px;background:#fff;
     }
-    .subTitle{
-      font-size:15px;
-      font-weight:700;
-      margin:16px 0 10px;
-    }
-    .row{
-      display:grid;
-      grid-template-columns:1.2fr 1.5fr 1.5fr auto;
-      gap:10px;
-      align-items:end;
-    }
-    .row2{
-      display:grid;
-      grid-template-columns:1.2fr 1fr 1fr auto;
-      gap:10px;
-      align-items:end;
-    }
-    .label{
-      font-size:13px;
-      color:var(--muted);
-      margin-bottom:6px;
-      display:block;
-    }
-    input, select, textarea, button{
-      font:inherit;
-    }
-    input, select, textarea{
-      width:100%;
-      padding:12px 14px;
-      border:1px solid var(--line);
-      border-radius:12px;
-      background:#fff;
-    }
-    textarea{
-      min-height:84px;
-      resize:vertical;
-    }
+    textarea{min-height:84px;resize:vertical;}
     button{
-      padding:12px 16px;
-      border:none;
-      border-radius:12px;
-      cursor:pointer;
-      background:var(--accent);
-      color:#fff;
-      font-weight:700;
+      padding:12px 16px;border:none;border-radius:12px;cursor:pointer;
+      background:var(--accent);color:#fff;font-weight:700;
     }
-    button.sub{
-      background:#e5e7eb;
-      color:#111827;
-    }
-    button.ghost{
-      background:#fff;
-      color:#111827;
-      border:1px solid var(--line);
-    }
+    button.sub{background:#e5e7eb;color:#111827;}
+    button.ghost{background:#fff;color:#111827;border:1px solid var(--line);}
     .infoBox{
-      padding:12px 14px;
-      border:1px solid var(--line);
-      border-radius:12px;
-      background:#fff;
-      font-weight:700;
-      display:inline-block;
-      min-width:180px;
+      padding:12px 14px;border:1px solid var(--line);border-radius:12px;
+      background:#fff;font-weight:700;display:inline-block;min-width:180px;
     }
-    .patientList{
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-      margin-bottom:12px;
-    }
+    .patientList{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;}
     .patientChip{
-      border:1px solid var(--line);
-      background:#fff;
-      color:#111827;
-      padding:10px 14px;
-      border-radius:12px;
-      cursor:pointer;
+      border:1px solid var(--line);background:#fff;color:#111827;
+      padding:10px 14px;border-radius:12px;cursor:pointer;
     }
     .patientChip.active{
-      background:var(--accent-soft);
-      border-color:#93c5fd;
-      color:var(--accent);
-      font-weight:700;
+      background:var(--accent-soft);border-color:#93c5fd;
+      color:var(--accent);font-weight:700;
     }
-    .dayGroup{
-      margin-top:18px;
+
+    /* ── patient tabs ── */
+    .tabBar{
+      display:flex;flex-wrap:wrap;gap:6px;
+      margin-bottom:16px;border-bottom:2px solid var(--line);padding-bottom:10px;
     }
+    .tabBtn{
+      padding:8px 16px;border-radius:999px;border:1px solid var(--line);
+      background:#fff;color:#374151;font-weight:600;font-size:14px;cursor:pointer;transition:all .15s;
+    }
+    .tabBtn:hover{background:#f3f4f6;}
+    .tabBtn.active{background:var(--accent);color:#fff;border-color:var(--accent);}
+    .tabPane{display:none;}
+    .tabPane.active{display:block;}
+
+    .dayGroup{margin-top:18px;}
     .dayHeader{
-      font-size:18px;
-      font-weight:700;
-      margin:0 0 10px;
-      padding-bottom:6px;
-      border-bottom:2px solid var(--line);
+      font-size:18px;font-weight:700;margin:0 0 10px;
+      padding-bottom:6px;border-bottom:2px solid var(--line);
     }
-    .cards{
-      display:grid;
-      grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
-      gap:14px;
-    }
-    .card{
-      border:1px solid var(--line);
-      border-radius:16px;
-      background:#fff;
-      padding:16px;
-    }
-    .card.ok{background:var(--ok-bg);border-color:#86efac}
-    .card.mid{background:var(--mid-bg);border-color:#fcd34d}
-    .card.ng{background:var(--ng-bg);border-color:#fca5a5}
-    .cardHead{
-      display:flex;
-      justify-content:space-between;
-      gap:12px;
-      align-items:flex-start;
-      margin-bottom:10px;
-    }
-    .cardTitle{
-      font-size:16px;
-      font-weight:700;
-      margin-bottom:4px;
-      line-height:1.5;
-    }
-    .subtext{
-      color:var(--muted);
-      font-size:13px;
-    }
-    .chips{
-      display:flex;
-      gap:8px;
-      margin:10px 0 12px;
-      flex-wrap:wrap;
-    }
+    .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px;}
+    .card{border:1px solid var(--line);border-radius:16px;background:#fff;padding:16px;}
+    .card.ok{background:var(--ok-bg);border-color:#86efac;}
+    .card.mid{background:var(--mid-bg);border-color:#fcd34d;}
+    .card.ng{background:var(--ng-bg);border-color:#fca5a5;}
+    .cardHead{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:10px;}
+    .cardTitle{font-size:16px;font-weight:700;margin-bottom:4px;line-height:1.5;}
+    .subtext{color:var(--muted);font-size:13px;}
+    .chips{display:flex;gap:8px;margin:10px 0 12px;flex-wrap:wrap;}
     .choice{
-      background:#fff;
-      color:#111827;
-      border:1px solid var(--line);
-      border-radius:999px;
-      padding:8px 12px;
-      font-weight:700;
+      background:#fff;color:#111827;border:1px solid var(--line);
+      border-radius:999px;padding:8px 12px;font-weight:700;
     }
-    .choice.active.ok{background:var(--ok);color:#fff;border-color:var(--ok)}
-    .choice.active.mid{background:var(--mid);color:#fff;border-color:var(--mid)}
-    .choice.active.ng{background:var(--ng);color:#fff;border-color:var(--ng)}
-    .section{
-      margin-top:12px;
-      border-top:1px dashed var(--line);
-      padding-top:12px;
+    .choice.active.ok{background:var(--ok);color:#fff;border-color:var(--ok);}
+    .choice.active.mid{background:var(--mid);color:#fff;border-color:var(--mid);}
+    .choice.active.ng{background:var(--ng);color:#fff;border-color:var(--ng);}
+    .section{margin-top:12px;border-top:1px dashed var(--line);padding-top:12px;}
+    .section h3{margin:0 0 8px;font-size:14px;}
+    .empty{color:var(--muted);padding:8px 0;}
+
+    /* ── overview matrix ── */
+    .overviewWrap{overflow-x:auto;}
+    .overviewTable{border-collapse:collapse;width:100%;min-width:500px;font-size:13px;}
+    .overviewTable th,.overviewTable td{
+      border:1px solid var(--line);padding:8px 10px;text-align:center;vertical-align:top;
     }
-    .section h3{
-      margin:0 0 8px;
-      font-size:14px;
+    .overviewTable thead th{background:#f1f5f9;font-weight:700;white-space:nowrap;}
+    .overviewTable thead th.dateCol{text-align:left;min-width:150px;}
+    .overviewTable td.dateCell{text-align:left;font-weight:700;background:#f8fafc;white-space:nowrap;}
+    .slotRow{display:flex;flex-direction:column;gap:4px;}
+    .slotBadge{
+      display:inline-flex;align-items:center;gap:4px;
+      padding:3px 8px;border-radius:8px;font-size:12px;font-weight:700;white-space:nowrap;
     }
-    .empty{
-      color:var(--muted);
-      padding:8px 0;
-    }
-    @media (max-width: 900px){
-      .row,.row2{grid-template-columns:1fr}
-    }
+    .slotBadge.ok{background:var(--ok-bg);color:var(--ok);}
+    .slotBadge.mid{background:var(--mid-bg);color:var(--mid);}
+    .slotBadge.ng{background:var(--ng-bg);color:var(--ng);}
+    .slotBadge.none{background:#f3f4f6;color:var(--muted);}
+    .noSlot{color:#cbd5e1;font-size:12px;}
+
+    @media(max-width:900px){.row,.row2{grid-template-columns:1fr;}}
   </style>
 </head>
 <body>
@@ -222,34 +140,18 @@
   <div class="panel">
     <div class="stepTitle">管理栄養士</div>
     <div class="infoBox" id="dietitianNameBox">読み込み中...</div>
-    <div class="subtext" style="margin-top:8px">
-      URLの <code>?user=xxxx</code> で管理栄養士を固定しています。
-    </div>
+    <div class="subtext" style="margin-top:8px">URLの <code>?user=xxxx</code> で管理栄養士を固定しています。</div>
   </div>
 
   <div class="panel">
     <div class="stepTitle">ステップ1—患者を登録・選択</div>
-
     <div class="patientList" id="patientList"></div>
-
     <div class="row">
-      <div>
-        <label class="label">患者名</label>
-        <input id="patientNameInput" placeholder="例：山田太郎">
-      </div>
-      <div>
-        <label class="label">患者さんの希望</label>
-        <textarea id="patientRequestInput" placeholder="例：午後希望、木曜不可"></textarea>
-      </div>
-      <div>
-        <label class="label">理事長の希望</label>
-        <textarea id="directorRequestInput" placeholder="例：13時以降、対面のみ"></textarea>
-      </div>
-      <div style="align-self:end">
-        <button type="button" id="savePatientBtn">患者情報を保存</button>
-      </div>
+      <div><label class="label">患者名</label><input id="patientNameInput" placeholder="例：山田太郎"></div>
+      <div><label class="label">患者さんの希望</label><textarea id="patientRequestInput" placeholder="例：午後希望、木曜不可"></textarea></div>
+      <div><label class="label">理事長の希望</label><textarea id="directorRequestInput" placeholder="例：13時以降、対面のみ"></textarea></div>
+      <div style="align-self:end"><button type="button" id="savePatientBtn">患者情報を保存</button></div>
     </div>
-
     <div style="margin-top:10px">
       <button type="button" class="sub" id="newPatientBtn">新しい患者として入力</button>
       <button type="button" class="sub" id="deletePatientBtn">選択中の患者を削除</button>
@@ -259,29 +161,28 @@
   <div class="panel">
     <div class="stepTitle">ステップ2—候補日時を追加</div>
     <div class="subtext" style="margin-bottom:12px" id="selectedPatientInfo">患者を選択してください</div>
-
     <div class="row2">
-      <div>
-        <label class="label">日付</label>
-        <input id="slotDate" type="date">
-      </div>
-      <div>
-        <label class="label">開始</label>
-        <select id="startTime"></select>
-      </div>
-      <div>
-        <label class="label">終了</label>
-        <select id="endTime"></select>
-      </div>
-      <div style="align-self:end">
-        <button type="button" id="addSlotBtn">枠を追加</button>
-      </div>
+      <div><label class="label">日付</label><input id="slotDate" type="date"></div>
+      <div><label class="label">開始</label><select id="startTime"></select></div>
+      <div><label class="label">終了</label><select id="endTime"></select></div>
+      <div style="align-self:end"><button type="button" id="addSlotBtn">枠を追加</button></div>
     </div>
   </div>
 
+  <!-- ステップ3: 患者タブ -->
   <div class="panel">
-    <div class="stepTitle">ステップ3—日付ごとに確認・入力</div>
-    <div id="scheduleBody" class="empty">患者を選択すると、候補枠が日付ごとに表示されます</div>
+    <div class="stepTitle">ステップ3—患者ごとに確認・入力</div>
+    <div class="tabBar" id="patientTabBar"></div>
+    <div id="patientTabPanes"></div>
+  </div>
+
+  <!-- ステップ4: 俯瞰ビュー -->
+  <div class="panel">
+    <div class="stepTitle">ステップ4—全患者 俯瞰ビュー（日付 × 患者）</div>
+    <div class="subtext" style="margin-bottom:14px">全員の候補枠を日付軸で一覧確認できます</div>
+    <div class="overviewWrap">
+      <div id="overviewBody" class="empty">候補枠を追加すると俯瞰表が表示されます</div>
+    </div>
   </div>
 </div>
 
@@ -300,321 +201,298 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/fireba
 import { getDatabase, ref, onValue, set } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js";
 
 const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
+const db  = getDatabase(app);
 
 const urlParams = new URLSearchParams(window.location.search);
 const userKey = urlParams.get("user") || "default";
-const nameMap = {
-  sekioka: "関岡",
-  izuta: "泉田",
-  hasegawa: "長谷川"
-};
+const nameMap = { sekioka:"関岡", izuta:"泉田", hasegawa:"長谷川" };
 
-const displayName = nameMap[userKey] || userKey;
 const dbRef = ref(db, `smartScheduleByUser/${userKey}`);
 
 const state = {
   dietitianName: userKey,
   patients: [],
   selectedPatientId: "",
-  slots: []
+  slots: [],
+  activeTabId: ""
 };
 
-const dietitianNameBox = document.getElementById("dietitianNameBox");
-const patientList = document.getElementById("patientList");
-const patientNameInput = document.getElementById("patientNameInput");
+const dietitianNameBox    = document.getElementById("dietitianNameBox");
+const patientList         = document.getElementById("patientList");
+const patientNameInput    = document.getElementById("patientNameInput");
 const patientRequestInput = document.getElementById("patientRequestInput");
-const directorRequestInput = document.getElementById("directorRequestInput");
-const savePatientBtn = document.getElementById("savePatientBtn");
-const newPatientBtn = document.getElementById("newPatientBtn");
-const deletePatientBtn = document.getElementById("deletePatientBtn");
+const directorRequestInput= document.getElementById("directorRequestInput");
+const savePatientBtn      = document.getElementById("savePatientBtn");
+const newPatientBtn       = document.getElementById("newPatientBtn");
+const deletePatientBtn    = document.getElementById("deletePatientBtn");
 const selectedPatientInfo = document.getElementById("selectedPatientInfo");
-const slotDate = document.getElementById("slotDate");
-const startTime = document.getElementById("startTime");
-const endTime = document.getElementById("endTime");
-const addSlotBtn = document.getElementById("addSlotBtn");
-const scheduleBody = document.getElementById("scheduleBody");
+const slotDate            = document.getElementById("slotDate");
+const startTime           = document.getElementById("startTime");
+const endTime             = document.getElementById("endTime");
+const addSlotBtn          = document.getElementById("addSlotBtn");
+const patientTabBar       = document.getElementById("patientTabBar");
+const patientTabPanes     = document.getElementById("patientTabPanes");
+const overviewBody        = document.getElementById("overviewBody");
 
 function fillTimes(sel){
-  sel.innerHTML = "";
-  for(let h=8; h<=20; h++){
-    for(let m=0; m<60; m+=10){
-      const hh = String(h).padStart(2,"0");
-      const mm = String(m).padStart(2,"0");
-      const t = `${hh}:${mm}`;
-      const opt = document.createElement("option");
-      opt.value = t;
-      opt.textContent = t;
-      sel.appendChild(opt);
-    }
+  sel.innerHTML="";
+  for(let h=8;h<=20;h++) for(let m=0;m<60;m+=10){
+    const t=`${String(h).padStart(2,"0")}:${String(m).padStart(2,"0")}`;
+    const o=document.createElement("option"); o.value=o.textContent=t; sel.appendChild(o);
   }
 }
-fillTimes(startTime);
-fillTimes(endTime);
-startTime.value = "10:00";
-endTime.value = "11:00";
+fillTimes(startTime); fillTimes(endTime);
+startTime.value="10:00"; endTime.value="11:00";
 
-function persist(){
-  return set(dbRef, state);
-}
+function persist(){ return set(dbRef, state); }
 
 function statusClass(s){
-  if (s === "○") return "ok";
-  if (s === "△") return "mid";
-  if (s === "×") return "ng";
+  if(s==="◎") return "ok";
+  if(s==="○") return "mid";
+  if(s==="△") return "ng";
   return "";
 }
-
-function toggleStatus(slot, next){
-  slot.status = slot.status === next ? "" : next;
-}
+function toggleStatus(slot,next){ slot.status = slot.status===next ? "" : next; }
 
 function fmtDate(d){
-  if (!d) return "";
-  const dt = new Date(d + "T00:00:00");
-  const w = ["日","月","火","水","木","金","土"][dt.getDay()];
+  if(!d) return "";
+  const dt=new Date(d+"T00:00:00");
+  const w=["日","月","火","水","木","金","土"][dt.getDay()];
   return `${d}（${w}）`;
 }
 
-function getSelectedPatient(){
-  return state.patients.find(p => p.id === state.selectedPatientId);
+function getSelectedPatient(){ return state.patients.find(p=>p.id===state.selectedPatientId); }
+
+function groupSlotsByDate(slots){
+  const g={};
+  slots.forEach(s=>{ if(!g[s.date]) g[s.date]=[]; g[s.date].push(s); });
+  return g;
 }
 
-function renderDietitian(){
-  dietitianNameBox.textContent = displayName;
-}
+// ─── render parts ─────────────────────────────────────
+
+function renderDietitian(){ dietitianNameBox.textContent = state.dietitianName; }
 
 function renderPatients(){
-  patientList.innerHTML = "";
-  if (!state.patients.length){
-    patientList.innerHTML = '<div class="empty">まだ患者が登録されていません</div>';
-    return;
+  patientList.innerHTML="";
+  if(!state.patients.length){
+    patientList.innerHTML='<div class="empty">まだ患者が登録されていません</div>'; return;
   }
-
-  state.patients.forEach(patient => {
-    const btn = document.createElement("button");
-    btn.className = `patientChip ${state.selectedPatientId === patient.id ? "active" : ""}`;
-    btn.textContent = patient.name || "（患者名未入力）";
-    btn.onclick = () => {
-      state.selectedPatientId = patient.id;
-      render();
-      persist();
-    };
+  state.patients.forEach(patient=>{
+    const btn=document.createElement("button");
+    btn.className=`patientChip ${state.selectedPatientId===patient.id?"active":""}`;
+    btn.textContent=patient.name||"（患者名未入力）";
+    btn.onclick=()=>{ state.selectedPatientId=patient.id; render(); persist(); };
     patientList.appendChild(btn);
   });
 }
 
 function renderPatientForm(){
-  const patient = getSelectedPatient();
-  if (!patient){
-    patientNameInput.value = "";
-    patientRequestInput.value = "";
-    directorRequestInput.value = "";
-    selectedPatientInfo.textContent = "患者を選択してください";
-    return;
+  const p=getSelectedPatient();
+  if(!p){
+    patientNameInput.value=patientRequestInput.value=directorRequestInput.value="";
+    selectedPatientInfo.textContent="患者を選択してください"; return;
   }
-  patientNameInput.value = patient.name || "";
-  patientRequestInput.value = patient.patientRequest || "";
-  directorRequestInput.value = patient.directorRequest || "";
-  selectedPatientInfo.textContent = `選択中患者：${patient.name || "（患者名未入力）"}`;
+  patientNameInput.value   =p.name||"";
+  patientRequestInput.value=p.patientRequest||"";
+  directorRequestInput.value=p.directorRequest||"";
+  selectedPatientInfo.textContent=`選択中患者：${p.name||"（患者名未入力）"}`;
 }
 
-function groupSlotsByDate(slots){
-  const groups = {};
-  slots.forEach(slot => {
-    if (!groups[slot.date]) groups[slot.date] = [];
-    groups[slot.date].push(slot);
-  });
-  return groups;
-}
-
-function renderSchedule(){
-  const patient = getSelectedPatient();
-  if (!patient){
-    scheduleBody.className = "empty";
-    scheduleBody.innerHTML = "患者を選択すると、候補枠が日付ごとに表示されます";
-    return;
-  }
-
-  const list = state.slots
-    .filter(s => s.patientId === patient.id)
-    .sort((a,b) => (a.date+a.start).localeCompare(b.date+b.start));
-
-  if (!list.length){
-    scheduleBody.className = "empty";
-    scheduleBody.innerHTML = "この患者の候補枠はまだありません";
-    return;
-  }
-
-  scheduleBody.className = "";
-  const groups = groupSlotsByDate(list);
-  const dates = Object.keys(groups).sort();
-
-  let html = "";
-  dates.forEach(date => {
-    html += `
-      <div class="dayGroup">
-        <div class="dayHeader">${fmtDate(date)}</div>
-        <div class="cards">
-          ${groups[date].map(slot => `
-            <div class="card ${statusClass(slot.status)}">
-              <div class="cardHead">
-                <div>
-                  <div class="cardTitle">${patient.name || "（患者名未入力）"}</div>
-                  <div class="subtext">${slot.start}〜${slot.end}</div>
-                </div>
-                <button type="button" class="ghost" data-del="${slot.id}">削除</button>
-              </div>
-
-              <div class="chips">
-                <button type="button" class="choice ${slot.status==='○' ? 'active ok' : ''}" data-status="${slot.id}" data-value="○">○</button>
-                <button type="button" class="choice ${slot.status==='△' ? 'active mid' : ''}" data-status="${slot.id}" data-value="△">△</button>
-                <button type="button" class="choice ${slot.status==='×' ? 'active ng' : ''}" data-status="${slot.id}" data-value="×">×</button>
-              </div>
-
-              <div>
-                <label class="label">備考</label>
-                <textarea data-note="${slot.id}" placeholder="例：オンライン希望、時間変更相談可">${slot.note || ""}</textarea>
-              </div>
-
-              <div class="section">
-                <h3>患者さんの希望</h3>
-                <div class="subtext">${patient.patientRequest || "未入力"}</div>
-              </div>
-
-              <div class="section">
-                <h3>理事長の希望</h3>
-                <div class="subtext">${patient.directorRequest || "未入力"}</div>
-              </div>
-            </div>
-          `).join("")}
+function slotCardHTML(slot, patient){
+  const sc=statusClass(slot.status);
+  return `
+    <div class="card ${sc}">
+      <div class="cardHead">
+        <div>
+          <div class="cardTitle">${patient.name||"（患者名未入力）"}</div>
+          <div class="subtext">${slot.start}〜${slot.end}</div>
         </div>
+        <button type="button" class="ghost" data-del="${slot.id}">削除</button>
       </div>
-    `;
+      <div class="chips">
+        <button type="button" class="choice ${slot.status==='◎'?'active ok':''}" data-status="${slot.id}" data-value="◎">◎</button>
+        <button type="button" class="choice ${slot.status==='○'?'active mid':''}" data-status="${slot.id}" data-value="○">○</button>
+        <button type="button" class="choice ${slot.status==='△'?'active ng':''}" data-status="${slot.id}" data-value="△">△</button>
+      </div>
+      <div>
+        <label class="label">備考</label>
+        <textarea data-note="${slot.id}" placeholder="例：オンライン希望、時間変更相談可">${slot.note||""}</textarea>
+      </div>
+      <div class="section"><h3>患者さんの希望</h3><div class="subtext">${patient.patientRequest||"未入力"}</div></div>
+      <div class="section"><h3>理事長の希望</h3><div class="subtext">${patient.directorRequest||"未入力"}</div></div>
+    </div>`;
+}
+
+function renderPatientTabs(){
+  patientTabBar.innerHTML="";
+  patientTabPanes.innerHTML="";
+
+  if(!state.patients.length){
+    patientTabPanes.innerHTML='<div class="empty">患者を登録すると、ここに患者ごとのタブが表示されます</div>';
+    return;
+  }
+
+  // アクティブタブが有効かチェック
+  if(!state.patients.find(p=>p.id===state.activeTabId)){
+    state.activeTabId=state.patients[0].id;
+  }
+
+  state.patients.forEach(patient=>{
+    const slotCount=state.slots.filter(s=>s.patientId===patient.id).length;
+
+    // タブボタン
+    const tabBtn=document.createElement("button");
+    tabBtn.className=`tabBtn ${patient.id===state.activeTabId?"active":""}`;
+    tabBtn.textContent=`${patient.name||"（名前未入力）"}（${slotCount}枠）`;
+    tabBtn.onclick=()=>{ state.activeTabId=patient.id; renderPatientTabs(); };
+    patientTabBar.appendChild(tabBtn);
+
+    // タブペイン
+    const pane=document.createElement("div");
+    pane.className=`tabPane ${patient.id===state.activeTabId?"active":""}`;
+
+    const list=state.slots
+      .filter(s=>s.patientId===patient.id)
+      .sort((a,b)=>(a.date+a.start).localeCompare(b.date+b.start));
+
+    if(!list.length){
+      pane.innerHTML='<div class="empty">この患者の候補枠はまだありません</div>';
+    } else {
+      const groups=groupSlotsByDate(list);
+      const dates=Object.keys(groups).sort();
+      let html="";
+      dates.forEach(date=>{
+        html+=`<div class="dayGroup">
+          <div class="dayHeader">${fmtDate(date)}</div>
+          <div class="cards">${groups[date].map(sl=>slotCardHTML(sl,patient)).join("")}</div>
+        </div>`;
+      });
+      pane.innerHTML=html;
+    }
+    patientTabPanes.appendChild(pane);
   });
 
-  scheduleBody.innerHTML = html;
-
-  scheduleBody.querySelectorAll("[data-del]").forEach(btn => {
-    btn.onclick = async () => {
-      state.slots = state.slots.filter(s => s.id !== btn.dataset.del);
-      render();
-      await persist();
+  // イベント委譲
+  patientTabPanes.querySelectorAll("[data-del]").forEach(btn=>{
+    btn.onclick=async()=>{ state.slots=state.slots.filter(s=>s.id!==btn.dataset.del); render(); await persist(); };
+  });
+  patientTabPanes.querySelectorAll("[data-status]").forEach(btn=>{
+    btn.onclick=async()=>{
+      const slot=state.slots.find(s=>s.id===btn.dataset.status); if(!slot) return;
+      toggleStatus(slot,btn.dataset.value); render(); await persist();
     };
   });
-
-  scheduleBody.querySelectorAll("[data-status]").forEach(btn => {
-    btn.onclick = async () => {
-      const slot = state.slots.find(s => s.id === btn.dataset.status);
-      if (!slot) return;
-      toggleStatus(slot, btn.dataset.value);
-      render();
-      await persist();
+  patientTabPanes.querySelectorAll("[data-note]").forEach(el=>{
+    el.onchange=async()=>{
+      const slot=state.slots.find(s=>s.id===el.dataset.note); if(!slot) return;
+      slot.note=el.value; await persist();
     };
   });
+}
 
-  scheduleBody.querySelectorAll("[data-note]").forEach(el => {
-    el.onchange = async () => {
-      const slot = state.slots.find(s => s.id === el.dataset.note);
-      if (!slot) return;
-      slot.note = el.value;
-      await persist();
-    };
+function renderOverview(){
+  if(!state.slots.length||!state.patients.length){
+    overviewBody.className="empty";
+    overviewBody.textContent="候補枠を追加すると俯瞰表が表示されます"; return;
+  }
+  overviewBody.className="";
+
+  const patients=state.patients;
+  const allDates=[...new Set(state.slots.map(s=>s.date))].sort();
+
+  let html=`<table class="overviewTable"><thead><tr>
+    <th class="dateCol">日付</th>
+    ${patients.map(p=>`<th>${p.name||"（名前未入力）"}</th>`).join("")}
+  </tr></thead><tbody>`;
+
+  allDates.forEach(date=>{
+    html+=`<tr><td class="dateCell">${fmtDate(date)}</td>`;
+    patients.forEach(patient=>{
+      const slots=state.slots
+        .filter(s=>s.patientId===patient.id&&s.date===date)
+        .sort((a,b)=>a.start.localeCompare(b.start));
+      if(!slots.length){
+        html+=`<td><span class="noSlot">—</span></td>`;
+      } else {
+        const badges=slots.map(sl=>{
+          const sc=statusClass(sl.status);
+          const label=sl.status||"未";
+          return `<span class="slotBadge ${sc||"none"}">${label} ${sl.start}〜${sl.end}</span>`;
+        }).join("");
+        html+=`<td><div class="slotRow">${badges}</div></td>`;
+      }
+    });
+    html+=`</tr>`;
   });
+
+  html+=`</tbody></table>`;
+  overviewBody.innerHTML=html;
 }
 
 function render(){
   renderDietitian();
   renderPatients();
   renderPatientForm();
-  renderSchedule();
+  renderPatientTabs();
+  renderOverview();
 }
 
-savePatientBtn.onclick = async () => {
-  const name = patientNameInput.value.trim();
-  const patientRequest = patientRequestInput.value.trim();
-  const directorRequest = directorRequestInput.value.trim();
+// ─── event handlers ───────────────────────────────────
 
-  if (!name){
-    alert("患者名を入力してください。");
-    return;
-  }
-
-  if (!state.selectedPatientId){
-    const newPatient = {
-      id: crypto.randomUUID(),
-      name,
-      patientRequest,
-      directorRequest
-    };
-    state.patients.push(newPatient);
-    state.selectedPatientId = newPatient.id;
+savePatientBtn.onclick=async()=>{
+  const name=patientNameInput.value.trim();
+  const patientRequest=patientRequestInput.value.trim();
+  const directorRequest=directorRequestInput.value.trim();
+  if(!name){ alert("患者名を入力してください。"); return; }
+  if(!state.selectedPatientId){
+    const np={id:crypto.randomUUID(),name,patientRequest,directorRequest};
+    state.patients.push(np);
+    state.selectedPatientId=np.id;
+    state.activeTabId=np.id;
   } else {
-    const patient = getSelectedPatient();
-    if (!patient) return;
-    patient.name = name;
-    patient.patientRequest = patientRequest;
-    patient.directorRequest = directorRequest;
+    const p=getSelectedPatient(); if(!p) return;
+    p.name=name; p.patientRequest=patientRequest; p.directorRequest=directorRequest;
   }
-
-  render();
-  await persist();
+  render(); await persist();
 };
 
-newPatientBtn.onclick = () => {
-  state.selectedPatientId = "";
-  render();
+newPatientBtn.onclick=()=>{ state.selectedPatientId=""; render(); };
+
+deletePatientBtn.onclick=async()=>{
+  const p=getSelectedPatient(); if(!p) return;
+  state.patients=state.patients.filter(pt=>pt.id!==p.id);
+  state.slots=state.slots.filter(s=>s.patientId!==p.id);
+  state.selectedPatientId=state.patients[0]?.id||"";
+  state.activeTabId=state.patients[0]?.id||"";
+  render(); await persist();
 };
 
-deletePatientBtn.onclick = async () => {
-  const patient = getSelectedPatient();
-  if (!patient) return;
-
-  state.patients = state.patients.filter(p => p.id !== patient.id);
-  state.slots = state.slots.filter(s => s.patientId !== patient.id);
-  state.selectedPatientId = state.patients[0]?.id || "";
-  render();
-  await persist();
-};
-
-addSlotBtn.onclick = async () => {
-  const patient = getSelectedPatient();
-  if (!patient){
-    alert("先に患者を登録または選択してください。");
-    return;
-  }
-  if (!slotDate.value){
-    alert("日付を入力してください。");
-    return;
-  }
-
-  const item = {
-    id: crypto.randomUUID(),
-    patientId: patient.id,
-    date: slotDate.value,
-    start: startTime.value,
-    end: endTime.value,
-    status: "",
-    note: ""
+addSlotBtn.onclick=async()=>{
+  const p=getSelectedPatient();
+  if(!p){ alert("先に患者を登録または選択してください。"); return; }
+  if(!slotDate.value){ alert("日付を入力してください。"); return; }
+  const item={
+    id:crypto.randomUUID(), patientId:p.id,
+    date:slotDate.value, start:startTime.value, end:endTime.value,
+    status:"", note:""
   };
-
+  state.activeTabId=p.id;
   state.slots.push(item);
-  render();
-  await persist();
+  render(); await persist();
 };
 
-onValue(dbRef, snapshot => {
-  const val = snapshot.val();
-  if (val) {
-    state.dietitianName = val.dietitianName || userKey;
-    state.patients = Array.isArray(val.patients) ? val.patients : [];
-    state.selectedPatientId = val.selectedPatientId || "";
-    state.slots = Array.isArray(val.slots) ? val.slots : [];
+onValue(dbRef, snapshot=>{
+  const val=snapshot.val();
+  if(val){
+    state.dietitianName     =val.dietitianName||userKey;
+    state.patients          =Array.isArray(val.patients)?val.patients:[];
+    state.selectedPatientId =val.selectedPatientId||"";
+    state.slots             =Array.isArray(val.slots)?val.slots:[];
+    state.activeTabId       =val.activeTabId||(state.patients[0]?.id||"");
   } else {
-    state.dietitianName = userKey;
-    state.patients = [];
-    state.selectedPatientId = "";
-    state.slots = [];
+    state.dietitianName=""; state.patients=[]; state.selectedPatientId="";
+    state.slots=[]; state.activeTabId="";
   }
   render();
 });
